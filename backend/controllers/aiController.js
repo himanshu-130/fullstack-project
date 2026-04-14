@@ -7,8 +7,11 @@ const Transaction = require('../models/Transaction');
 exports.getInsights = async (req, res, next) => {
   try {
     const aiKey = process.env.GEMINI_API_KEY;
-    if (!aiKey) {
-      return res.status(500).json({ success: false, message: 'AI API key not configured' });
+    if (!aiKey || aiKey === 'YOUR_GEMINI_API_KEY_HERE') {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'GEMINI_API_KEY is not configured. Add your key to the backend .env file. Get one free at https://aistudio.google.com/apikey' 
+      });
     }
 
     // Fetch user transactions
@@ -22,7 +25,7 @@ exports.getInsights = async (req, res, next) => {
     }
 
     const genAI = new GoogleGenerativeAI(aiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     // Calculate basic totals for the prompt
     let totalIncome = 0;
@@ -44,12 +47,12 @@ exports.getInsights = async (req, res, next) => {
     const prompt = `Analyze this user's spending data and give actionable advice.
     
     Summary:
-    Total Income: ${totalIncome}
-    Total Expenses: ${totalExpense}
-    Balance: ${totalIncome - totalExpense}
+    Total Income: ₹${totalIncome}
+    Total Expenses: ₹${totalExpense}
+    Balance: ₹${totalIncome - totalExpense}
     
     Recent Transactions: 
-    ${JSON.stringify(summarizedTransactions.slice(0, 50))} // Limiting to recent 50 for token limits
+    ${JSON.stringify(summarizedTransactions.slice(0, 50))}
     
     Please provide:
     1. A short, encouraging opening sentence.
@@ -63,6 +66,17 @@ exports.getInsights = async (req, res, next) => {
 
     res.status(200).json({ success: true, insights: text });
   } catch (error) {
+    console.error('AI Controller Error:', error.message);
+    
+    // Return a user-friendly error based on the type
+    if (error.message?.includes('API_KEY_INVALID') || error.message?.includes('API key')) {
+      return res.status(401).json({ 
+        success: false, 
+        message: 'Invalid Gemini API key. Please check your GEMINI_API_KEY in the .env file.' 
+      });
+    }
+    
     next(error);
   }
 };
+

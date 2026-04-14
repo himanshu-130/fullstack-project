@@ -33,30 +33,43 @@ export default function Insights() {
     }, {});
 
   if (loading) {
-    return <div className="p-6 text-center text-white">Loading approvals...</div>;
+    return <div className="p-6 text-center" style={{ color: 'var(--text-muted)' }}>Loading approvals...</div>;
   }
 
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-bold text-white">Approvals & Breakdown</h1>
+      <h1 className="text-3xl font-bold" style={{ color: 'var(--text-heading)' }}>Approvals & Breakdown</h1>
       
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="p-8 bg-zinc-900 shadow-xl border border-zinc-800 rounded-2xl">
-          <p className="text-sm uppercase text-zinc-400 mb-1">Total Requiring Approval</p>
-          <h3 className="text-4xl font-bold text-white mb-4">
+        <div
+          className="p-8 shadow-xl rounded-2xl"
+          style={{
+            backgroundColor: 'var(--bg-card)',
+            border: '1px solid var(--border-primary)',
+          }}
+        >
+          <p className="text-sm uppercase mb-1" style={{ color: 'var(--text-muted)' }}>Total Requiring Approval</p>
+          <h3 className="text-4xl font-bold mb-4" style={{ color: 'var(--text-heading)' }}>
             ₹{totalExpense.toFixed(2)}
           </h3>
           {transactions.length === 0 && (
-            <p className="text-sm text-zinc-500">No data yet</p>
+            <p className="text-sm" style={{ color: 'var(--text-muted)' }}>No data yet</p>
           )}
         </div>
 
         {/* ALERT */}
-        <div className="md:col-span-2 p-8 rounded-[1.5rem] border border-yellow-500/20 bg-yellow-500/10 flex items-center">
+        <div
+          className="md:col-span-2 p-8 rounded-2xl flex items-center"
+          style={{
+            backgroundColor: 'var(--warning-subtle)',
+            border: '1px solid var(--warning)',
+            borderColor: 'rgba(251, 191, 36, 0.2)',
+          }}
+        >
           {transactions.length === 0 ? (
-            <p className="text-yellow-400">No pending approvals. Add transactions to request reimbursement 🚀</p>
+            <p style={{ color: 'var(--warning)' }}>No pending approvals. Add transactions to request reimbursement 🚀</p>
           ) : (
-            <p className="text-yellow-400 font-medium">Review your categorized expenses requiring approval 📊</p>
+            <p className="font-medium" style={{ color: 'var(--warning)' }}>Review your categorized expenses requiring approval 📊</p>
           )}
         </div>
       </section>
@@ -64,37 +77,62 @@ export default function Insights() {
       {/* BREAKDOWN */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-8">
-           <div className="p-8 h-full bg-zinc-900 border border-zinc-800 rounded-2xl">
-             <h3 className="text-xl font-bold text-white mb-6">Approval Queue</h3>
+           <div
+             className="p-8 h-full rounded-2xl"
+             style={{
+               backgroundColor: 'var(--bg-card)',
+               border: '1px solid var(--border-primary)',
+             }}
+           >
+             <h3 className="text-xl font-bold mb-6" style={{ color: 'var(--text-heading)' }}>Approval Queue</h3>
              {transactions.length > 0 ? (
                <div className="space-y-4">
                  {transactions.slice(0, 8).map(tx => (
-                   <div key={tx._id} className="flex justify-between items-center p-4 bg-zinc-950 rounded-xl border border-zinc-800">
+                   <div
+                     key={tx._id}
+                     className="flex justify-between items-center p-4 rounded-xl"
+                     style={{
+                       backgroundColor: 'var(--bg-surface)',
+                       border: '1px solid var(--border-primary)',
+                     }}
+                   >
                      <div>
-                       <p className="text-white font-medium">{tx.title}</p>
-                       <p className="text-xs text-zinc-500">{new Date(tx.date).toLocaleDateString()}</p>
+                       <p className="font-medium" style={{ color: 'var(--text-heading)' }}>{tx.title}</p>
+                       <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{new Date(tx.date).toLocaleDateString()}</p>
                      </div>
                      <div className="flex items-center gap-4">
-                       <span className={`px-2 py-1 rounded text-xs font-bold ${tx.type === 'expense' ? 'bg-red-500/10 text-red-400' : 'bg-emerald-500/10 text-emerald-400'}`}>
+                       <span
+                         className="px-2 py-1 rounded text-xs font-bold"
+                         style={{
+                           backgroundColor: tx.type === 'expense' ? 'var(--danger-subtle)' : 'var(--success-subtle)',
+                           color: tx.type === 'expense' ? 'var(--danger)' : 'var(--success)',
+                         }}
+                       >
                          {tx.type}
                        </span>
-                       <span className="text-white font-bold">₹{Math.abs(tx.amount).toFixed(2)}</span>
+                       <span className="font-bold" style={{ color: 'var(--text-heading)' }}>₹{Math.abs(tx.amount).toFixed(2)}</span>
                      </div>
                    </div>
                  ))}
                </div>
              ) : (
-               <p className="text-zinc-500">Queue is clear.</p>
+               <p style={{ color: 'var(--text-muted)' }}>Queue is clear.</p>
              )}
            </div>
         </div>
 
         {/* CATEGORY */}
         <div className="lg:col-span-4">
-           <div className="p-8 h-full bg-zinc-900 border border-zinc-800 rounded-2xl">
-             <h3 className="text-xl font-bold text-white mb-6">Category Breakdown</h3>
+           <div
+             className="p-8 h-full rounded-2xl"
+             style={{
+               backgroundColor: 'var(--bg-card)',
+               border: '1px solid var(--border-primary)',
+             }}
+           >
+             <h3 className="text-xl font-bold mb-6" style={{ color: 'var(--text-heading)' }}>Category Breakdown</h3>
              {totalExpense === 0 ? (
-               <div className="text-zinc-500 text-sm">
+               <div className="text-sm" style={{ color: 'var(--text-muted)' }}>
                  No expense data to break down.
                </div>
              ) : (
@@ -103,14 +141,14 @@ export default function Insights() {
                    const percent = totalExpense ? (value / totalExpense) * 100 : 0;
                    return (
                      <div key={key}>
-                       <div className="flex justify-between text-sm mb-2 text-white">
+                       <div className="flex justify-between text-sm mb-2" style={{ color: 'var(--text-primary)' }}>
                          <span>{key}</span>
                          <span className="font-bold">₹{value.toFixed(2)}</span>
                        </div>
-                       <div className="w-full bg-zinc-800 h-2.5 rounded-full overflow-hidden">
+                       <div className="w-full h-2.5 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--bg-surface-raised)' }}>
                          <div
-                           className="bg-zinc-400 h-full rounded-full"
-                           style={{ width: `${percent}%` }}
+                           className="h-full rounded-full transition-all"
+                           style={{ width: `${percent}%`, backgroundColor: 'var(--accent)' }}
                          />
                        </div>
                      </div>

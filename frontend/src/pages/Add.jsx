@@ -71,8 +71,8 @@ export default function Add() {
     <div className="max-w-6xl mx-auto space-y-6">
       <div className="mb-8 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">New Transaction</h1>
-          <p className="text-zinc-400 mt-1">Add details for your upcoming financial audit.</p>
+          <h1 className="text-3xl font-bold tracking-tight" style={{ color: 'var(--text-heading)' }}>New Transaction</h1>
+          <p className="mt-1" style={{ color: 'var(--text-secondary)' }}>Add details for your upcoming financial audit.</p>
         </div>
       </div>
 
@@ -82,9 +82,15 @@ export default function Add() {
         <div className="lg:col-span-2 space-y-6">
           
           {/* Amount Box */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 flex flex-col items-center justify-center relative shadow-lg">
-            <span className="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-6">Total Transaction Amount</span>
-            <div className="flex items-center text-[#34d399] drop-shadow-[0_0_15px_rgba(52,211,153,0.3)]">
+          <div
+            className="rounded-3xl p-8 flex flex-col items-center justify-center relative shadow-lg"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-primary)',
+            }}
+          >
+            <span className="text-xs font-bold uppercase tracking-widest mb-6" style={{ color: 'var(--text-muted)' }}>Total Transaction Amount</span>
+            <div className="flex items-center" style={{ color: 'var(--accent)' }}>
               <span className="text-5xl font-bold mr-4">₹</span>
               <input
                 type="text"
@@ -92,63 +98,84 @@ export default function Add() {
                 onChange={handleAmountChange}
                 className="bg-transparent text-8xl font-black tracking-tighter outline-none w-[350px] text-center"
                 placeholder="0.00"
+                style={{ color: 'var(--accent)' }}
               />
             </div>
             {/* Background decorative icon */}
-            <span className="material-symbols-outlined absolute right-8 top-1/2 -translate-y-1/2 text-[150px] text-zinc-800/20 pointer-events-none">
+            <span
+              className="material-symbols-outlined absolute right-8 top-1/2 -translate-y-1/2 text-[150px] pointer-events-none"
+              style={{ color: 'var(--border-primary)', opacity: 0.2 }}
+            >
               payments
             </span>
           </div>
 
           {/* Details Form Box */}
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-8 shadow-lg">
+          <div
+            className="rounded-3xl p-8 shadow-lg"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-primary)',
+            }}
+          >
             <form onSubmit={handleSubmit} className="space-y-8">
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-zinc-400 block ml-1">Merchant Name</label>
+                  <label className="text-xs font-bold block ml-1" style={{ color: 'var(--text-muted)' }}>Merchant Name</label>
                   <div className="relative">
-                    <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">storefront</span>
+                    <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-sm" style={{ color: 'var(--text-muted)' }}>storefront</span>
                     <input
                       type="text"
                       name="title"
                       value={form.title}
                       onChange={handleChange}
                       placeholder="Select Merchant"
-                      className="w-full bg-black border border-zinc-800 rounded-xl py-4 pl-12 pr-4 text-white placeholder-zinc-600 outline-none focus:border-[#34d399] transition-all font-medium"
+                      className="w-full rounded-xl py-4 pl-12 pr-4 outline-none transition-all font-medium"
+                      style={{
+                        backgroundColor: 'var(--bg-surface)',
+                        border: '1px solid var(--border-primary)',
+                        color: 'var(--text-primary)',
+                      }}
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-zinc-400 block ml-1">Transaction Date</label>
+                  <label className="text-xs font-bold block ml-1" style={{ color: 'var(--text-muted)' }}>Transaction Date</label>
                   <div className="relative">
-                     <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">calendar_month</span>
+                     <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-sm" style={{ color: 'var(--text-muted)' }}>calendar_month</span>
                      <input
                       type="date"
                       name="date"
                       value={form.date}
                       onChange={handleChange}
-                      style={{ colorScheme: 'dark' }}
-                      className="w-full bg-black border border-zinc-800 rounded-xl py-4 pl-12 pr-4 text-white outline-none focus:border-[#34d399] transition-all font-medium"
+                      style={{
+                        backgroundColor: 'var(--bg-surface)',
+                        border: '1px solid var(--border-primary)',
+                        color: 'var(--text-primary)',
+                        colorScheme: 'var(--color-scheme)',
+                      }}
+                      className="w-full rounded-xl py-4 pl-12 pr-4 outline-none transition-all font-medium"
                     />
                   </div>
                 </div>
               </div>
 
               <div className="space-y-4">
-                 <label className="text-xs font-bold text-zinc-400 block ml-1">Expense Category</label>
+                 <label className="text-xs font-bold block ml-1" style={{ color: 'var(--text-muted)' }}>Expense Category</label>
                  <div className="flex flex-wrap gap-4">
                    {categories.map((cat) => (
                      <button
                        key={cat.id}
                        type="button"
                        onClick={() => handleCategorySelect(cat.id)}
-                       className={`flex flex-col items-center justify-center w-24 py-4 rounded-2xl border transition-all ${
-                         form.category === cat.id 
-                           ? 'border-[#34d399] bg-[#34d399]/10 text-[#34d399]' 
-                           : 'border-zinc-800 bg-black text-zinc-400 hover:border-zinc-600'
-                       }`}
+                       className="flex flex-col items-center justify-center w-24 py-4 rounded-2xl transition-all"
+                       style={{
+                         backgroundColor: form.category === cat.id ? 'var(--accent-subtle)' : 'var(--bg-surface)',
+                         border: `1px solid ${form.category === cat.id ? 'var(--accent)' : 'var(--border-primary)'}`,
+                         color: form.category === cat.id ? 'var(--accent)' : 'var(--text-muted)',
+                       }}
                      >
                        <span className="material-symbols-outlined mb-2">{cat.icon}</span>
                        <span className="text-xs font-bold">{cat.id}</span>
@@ -158,25 +185,65 @@ export default function Add() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-xs font-bold text-zinc-400 block ml-1">Internal Note (Optional)</label>
+                <label className="text-xs font-bold block ml-1" style={{ color: 'var(--text-muted)' }}>Internal Note (Optional)</label>
                 <textarea
                   rows="3"
                   placeholder="Describe the business purpose..."
-                  className="w-full bg-black border border-zinc-800 rounded-2xl p-4 text-white placeholder-zinc-600 outline-none focus:border-[#34d399] transition-all resize-none"
+                  className="w-full rounded-2xl p-4 outline-none transition-all resize-none"
+                  style={{
+                    backgroundColor: 'var(--bg-surface)',
+                    border: '1px solid var(--border-primary)',
+                    color: 'var(--text-primary)',
+                  }}
                 ></textarea>
               </div>
 
                <div className="pt-4 flex justify-end gap-4 items-center">
-                 {/* Type Switcher (Expense/Income) styled purely as optional toggle since this is mainly expense view */}
-                 <div className="mr-auto flex items-center bg-black border border-zinc-800 rounded-xl p-1">
-                    <button type="button" onClick={() => setForm({...form, type: 'expense'})} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${form.type === 'expense' ? 'bg-zinc-800 text-white' : 'text-zinc-500 hover:text-zinc-300'}`}>Expense</button>
-                    <button type="button" onClick={() => setForm({...form, type: 'income'})} className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${form.type === 'income' ? 'bg-[#34d399]/20 text-[#34d399]' : 'text-zinc-500 hover:text-zinc-300'}`}>Income</button>
+                 {/* Type Switcher */}
+                 <div
+                   className="mr-auto flex items-center rounded-xl p-1"
+                   style={{
+                     backgroundColor: 'var(--bg-surface)',
+                     border: '1px solid var(--border-primary)',
+                   }}
+                 >
+                    <button
+                      type="button"
+                      onClick={() => setForm({...form, type: 'expense'})}
+                      className="px-4 py-2 rounded-lg text-xs font-bold transition-all"
+                      style={{
+                        backgroundColor: form.type === 'expense' ? 'var(--bg-surface-raised)' : 'transparent',
+                        color: form.type === 'expense' ? 'var(--text-heading)' : 'var(--text-muted)',
+                      }}
+                    >
+                      Expense
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setForm({...form, type: 'income'})}
+                      className="px-4 py-2 rounded-lg text-xs font-bold transition-all"
+                      style={{
+                        backgroundColor: form.type === 'income' ? 'var(--accent-subtle)' : 'transparent',
+                        color: form.type === 'income' ? 'var(--accent)' : 'var(--text-muted)',
+                      }}
+                    >
+                      Income
+                    </button>
                  </div>
 
-                 <button type="button" className="px-8 py-4 rounded-xl bg-zinc-800 text-white font-bold hover:bg-zinc-700 transition">
+                 <button type="button" className="px-8 py-4 rounded-xl font-bold transition" style={{ backgroundColor: 'var(--bg-surface-raised)', color: 'var(--text-heading)' }}>
                    Save Draft
                  </button>
-                 <button type="submit" disabled={loading} className="px-8 py-4 rounded-xl bg-[#34d399] text-[#090b10] font-extrabold hover:bg-[#2ebc87] transition shadow-[0_0_20px_rgba(52,211,153,0.3)]">
+                 <button
+                   type="submit"
+                   disabled={loading}
+                   className="px-8 py-4 rounded-xl font-extrabold transition"
+                   style={{
+                     backgroundColor: 'var(--accent)',
+                     color: 'white',
+                     boxShadow: '0 0 20px rgba(52,211,153,0.25)',
+                   }}
+                 >
                    {loading ? "Adding..." : "Add"}
                  </button>
                </div>
@@ -187,61 +254,89 @@ export default function Add() {
         {/* RIGHT COLUMN: Scanners & Policy */}
         <div className="lg:col-span-1 space-y-6">
           
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 shadow-lg">
+          <div
+            className="rounded-3xl p-6 shadow-lg"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-primary)',
+            }}
+          >
              <div className="flex items-center gap-2 mb-2">
-               <span className="material-symbols-outlined text-[#34d399] text-xl">verified_user</span>
-               <h3 className="font-bold text-white text-lg">Smart Scan</h3>
+               <span className="material-symbols-outlined text-xl" style={{ color: 'var(--accent)' }}>verified_user</span>
+               <h3 className="font-bold text-lg" style={{ color: 'var(--text-heading)' }}>Smart Scan</h3>
              </div>
-             <p className="text-zinc-400 text-xs mb-6">AI-powered receipt recognition</p>
+             <p className="text-xs mb-6" style={{ color: 'var(--text-muted)' }}>AI-powered receipt recognition</p>
 
-             <div className="border-2 border-dashed border-zinc-700 rounded-2xl bg-black relative h-48 flex flex-col items-center justify-center group cursor-pointer hover:border-[#34d399]/50 hover:bg-zinc-900/50 transition-all overflow-hidden">
-                <span className="material-symbols-outlined text-4xl text-[#34d399] mb-2 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]">add_a_photo</span>
-                <span className="text-white font-bold text-sm">Upload Receipt</span>
-                <span className="text-zinc-500 text-[10px] mt-1">PNG, JPG or PDF up to 10MB</span>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
+             <div
+               className="border-2 border-dashed rounded-2xl relative h-48 flex flex-col items-center justify-center group cursor-pointer transition-all overflow-hidden"
+               style={{
+                 borderColor: 'var(--border-secondary)',
+                 backgroundColor: 'var(--bg-surface)',
+               }}
+             >
+                <span className="material-symbols-outlined text-4xl mb-2 group-hover:scale-110 transition-transform" style={{ color: 'var(--accent)' }}>add_a_photo</span>
+                <span className="font-bold text-sm" style={{ color: 'var(--text-heading)' }}>Upload Receipt</span>
+                <span className="text-[10px] mt-1" style={{ color: 'var(--text-muted)' }}>PNG, JPG or PDF up to 10MB</span>
              </div>
 
              <div className="flex gap-3 mt-6 items-start">
-               <span className="material-symbols-outlined text-blue-400 text-sm mt-0.5">info</span>
-               <p className="text-zinc-400 text-[11px] leading-relaxed">
-                 Receipt scanning extracts merchant, date, and tax details automatically with <span className="text-white font-bold">99.4%</span> accuracy.
+               <span className="material-symbols-outlined text-sm mt-0.5" style={{ color: 'var(--info)' }}>info</span>
+               <p className="text-[11px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                 Receipt scanning extracts merchant, date, and tax details automatically with <span className="font-bold" style={{ color: 'var(--text-heading)' }}>99.4%</span> accuracy.
                </p>
              </div>
           </div>
 
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 shadow-lg space-y-5">
+          <div
+            className="rounded-3xl p-6 shadow-lg space-y-5"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-primary)',
+            }}
+          >
              <div className="flex justify-between items-center text-sm">
-                <span className="text-zinc-400">Policy Check</span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-extrabold bg-[#34d399]/10 text-[#34d399] tracking-wider">COMPLIANT</span>
+                <span style={{ color: 'var(--text-muted)' }}>Policy Check</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-extrabold tracking-wider" style={{ backgroundColor: 'var(--accent-subtle)', color: 'var(--accent)' }}>COMPLIANT</span>
              </div>
              <div className="flex justify-between items-center text-sm">
-                <span className="text-zinc-400">Tax Rate</span>
-                <span className="text-white font-bold text-xs">8.25% (Standard)</span>
+                <span style={{ color: 'var(--text-muted)' }}>Tax Rate</span>
+                <span className="font-bold text-xs" style={{ color: 'var(--text-heading)' }}>8.25% (Standard)</span>
              </div>
              <div className="flex justify-between items-center text-sm">
-                <span className="text-zinc-400">Reimbursable</span>
-                <div className="w-8 h-4 bg-[#34d399] rounded-full relative shadow-[0_0_10px_rgba(52,211,153,0.3)] cursor-pointer">
-                  <div className="w-3 h-3 bg-zinc-900 rounded-full absolute right-0.5 top-0.5"></div>
+                <span style={{ color: 'var(--text-muted)' }}>Reimbursable</span>
+                <div className="w-8 h-4 rounded-full relative cursor-pointer" style={{ backgroundColor: 'var(--accent)', boxShadow: '0 0 10px rgba(52,211,153,0.3)' }}>
+                  <div className="w-3 h-3 rounded-full absolute right-0.5 top-0.5" style={{ backgroundColor: 'var(--bg-card)' }}></div>
                 </div>
              </div>
              <div className="flex justify-between items-center text-sm">
-                <span className="text-zinc-400">Project Code</span>
-                <span className="text-[#a855f7] font-bold text-[11px] tracking-wider">#LOGIC-2024-X</span>
+                <span style={{ color: 'var(--text-muted)' }}>Project Code</span>
+                <span className="font-bold text-[11px] tracking-wider" style={{ color: '#a855f7' }}>#LOGIC-2024-X</span>
              </div>
           </div>
 
-          <div className="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 shadow-lg">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-500 mb-4">Frequent Merchants</h3>
+          <div
+            className="rounded-3xl p-6 shadow-lg"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              border: '1px solid var(--border-primary)',
+            }}
+          >
+            <h3 className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--text-muted)' }}>Frequent Merchants</h3>
             <div className="grid grid-cols-2 gap-3">
               {frequentMerchants.map((m) => (
                  <button 
                    key={m.name}
                    type="button"
                    onClick={() => handleMerchantSelect(m.name)}
-                   className="flex items-center gap-3 bg-black border border-zinc-800 p-3 rounded-xl hover:border-zinc-600 transition-colors"
+                   className="flex items-center gap-3 p-3 rounded-xl transition-colors"
+                   style={{
+                     backgroundColor: 'var(--bg-surface)',
+                     border: '1px solid var(--border-primary)',
+                     color: 'var(--text-muted)',
+                   }}
                  >
-                    <span className="material-symbols-outlined text-zinc-400 text-sm">{m.icon}</span>
-                    <span className="text-white font-bold text-xs">{m.name}</span>
+                    <span className="material-symbols-outlined text-sm">{m.icon}</span>
+                    <span className="font-bold text-xs" style={{ color: 'var(--text-heading)' }}>{m.name}</span>
                  </button>
               ))}
             </div>

@@ -15,7 +15,7 @@ export default function AiHelp() {
       setInsights(res.data.insights);
     } catch (err) {
       console.error(err);
-      toast.error('Failed to grab AI insights. Ensure your `.env` contains GEMINI_API_KEY.');
+      toast.error(err.response?.data?.message || 'Failed to grab AI insights. Ensure your `.env` contains GEMINI_API_KEY.');
     } finally {
       setLoading(false);
     }
@@ -24,8 +24,8 @@ export default function AiHelp() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">AI Financial Insights</h1>
-        <p className="text-slate-400">
+        <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--text-heading)' }}>AI Financial Insights</h1>
+        <p style={{ color: 'var(--text-secondary)' }}>
           Get personalized recommendations based on your spending patterns.
         </p>
       </div>
@@ -33,8 +33,8 @@ export default function AiHelp() {
       <Card className="p-8">
         <div className="flex flex-col md:flex-row items-center gap-6 justify-between mb-8">
           <div>
-            <h2 className="text-xl font-semibold text-white">Generate Your Report</h2>
-            <p className="text-sm text-slate-400 mt-1">
+            <h2 className="text-xl font-semibold" style={{ color: 'var(--text-heading)' }}>Generate Your Report</h2>
+            <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
               The AI will analyze your latest transactions to find saving opportunities.
             </p>
           </div>
@@ -44,11 +44,18 @@ export default function AiHelp() {
         </div>
 
         {insights && (
-          <div className="p-6 bg-slate-900 border border-slate-700 rounded-2xl">
-            <h3 className="text-lg font-medium text-cyan-400 mb-4 flex items-center gap-2">
-              <span>🧠</span> AI Analysis Complete
+          <div
+            className="p-6 rounded-2xl"
+            style={{
+              backgroundColor: 'var(--bg-surface)',
+              border: '1px solid var(--border-primary)',
+            }}
+          >
+            <h3 className="text-lg font-medium mb-4 flex items-center gap-2" style={{ color: 'var(--accent)' }}>
+              <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>psychology</span>
+              AI Analysis Complete
             </h3>
-            <div className="text-slate-200 leading-relaxed whitespace-pre-wrap">
+            <div className="leading-relaxed whitespace-pre-wrap" style={{ color: 'var(--text-primary)' }}>
               {insights}
             </div>
           </div>

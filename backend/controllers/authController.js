@@ -19,7 +19,8 @@ exports.register = async (req, res, next) => {
   }
 
   try {
-    const { name, email, password } = req.body;
+    const { name, password } = req.body;
+    const email = req.body.email?.toLowerCase().trim();
 
     // Check if user exists
     const userExists = await User.findOne({ email });
@@ -60,7 +61,8 @@ exports.login = async (req, res, next) => {
   }
 
   try {
-    const { email, password } = req.body;
+    const { password } = req.body;
+    const email = req.body.email?.toLowerCase().trim();
 
     // Check for user
     const user = await User.findOne({ email }).select('+password');

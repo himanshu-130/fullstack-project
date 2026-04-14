@@ -1,9 +1,40 @@
-node_modules
+# Dependencies
+node_modules/
+
+# Environment variables (NEVER push these)
 .env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+dist-ssr/
+build/
+
+# OS files
 .DS_Store
-dist
-dist-ssr
-*.local
+Thumbs.db
+
+# Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+
+# Lint / debug reports
+*.txt
+eslint_report*.json
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Local
+*.local

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Card from '../components/Card';
 
 export default function Category() {
   const [categories, setCategories] = useState([]);
@@ -33,7 +34,7 @@ export default function Category() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
 
-      <h2 className="text-3xl font-bold mb-6">Categories</h2>
+      <h2 className="text-3xl font-bold mb-6" style={{ color: 'var(--text-heading)' }}>Categories</h2>
 
       {/* ➕ ADD CATEGORY */}
       <div className="flex gap-3 mb-6">
@@ -41,11 +42,17 @@ export default function Category() {
           value={newCategory}
           onChange={(e) => setNewCategory(e.target.value)}
           placeholder="Add category"
-          className="border p-2 rounded w-full"
+          className="p-2 rounded-xl w-full outline-none"
+          style={{
+            backgroundColor: 'var(--bg-input)',
+            border: '1px solid var(--border-input)',
+            color: 'var(--text-primary)',
+          }}
         />
         <button
           onClick={addCategory}
-          className="bg-blue-500 text-white px-4 rounded"
+          className="px-4 rounded-xl font-bold transition"
+          style={{ backgroundColor: 'var(--accent)', color: 'white' }}
         >
           Add
         </button>
@@ -53,25 +60,21 @@ export default function Category() {
 
       {/* EMPTY STATE */}
       {categories.length === 0 ? (
-<div className="h-40 flex items-center justify-center text-gray-400 text-center">
-  No categories yet 
-</div>
+        <Card className="p-12 text-center">
+          <p style={{ color: 'var(--text-muted)' }}>No categories yet</p>
+        </Card>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-
           {categories.map((cat, index) => {
             const count = transactions.filter(
               tx => tx.category === cat
             ).length;
 
             return (
-              <div
-                key={index}
-                className="p-4 bg-white rounded-xl shadow flex justify-between items-center"
-              >
+              <Card key={index} className="p-4 flex justify-between items-center">
                 <div>
-                  <h4 className="font-bold">{cat}</h4>
-                  <p className="text-sm text-gray-500">
+                  <h4 className="font-bold" style={{ color: 'var(--text-heading)' }}>{cat}</h4>
+                  <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
                     {count} transactions
                   </p>
                 </div>
@@ -79,14 +82,14 @@ export default function Category() {
                 {/* DELETE */}
                 <button
                   onClick={() => deleteCategory(cat)}
-                  className="text-red-500 text-sm"
+                  className="text-sm font-medium transition-colors"
+                  style={{ color: 'var(--danger)' }}
                 >
                   Delete
                 </button>
-              </div>
+              </Card>
             );
           })}
-
         </div>
       )}
     </div>

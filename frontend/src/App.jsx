@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
+import { useTheme } from "./context/ThemeContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -18,11 +19,12 @@ import Signup from "./pages/Signup";
 
 export default function App() {
   const { user } = useAuth();
+  const { theme } = useTheme();
   const isLoggedIn = !!user;
 
   return (
     <>
-      <ToastContainer position="top-right" autoClose={3000} theme="dark" />
+      <ToastContainer position="top-right" autoClose={3000} theme={theme === 'dark' ? 'dark' : 'light'} />
       <BrowserRouter>
         <Routes>
 
