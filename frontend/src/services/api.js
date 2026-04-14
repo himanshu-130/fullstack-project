@@ -7,7 +7,18 @@ const api = axios.create({
 // Request interceptor to attach standard JWT token
 api.interceptors.request.use(
   (config) => {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    let user = null;
+    try {
+      const stored = localStorage.getItem('user');
+      if (stored && stored !== 'undefined') {
+        user = JSON.parse(stored);
+      } else if (stored === 'undefined') {
+        localStorage.removeItem('user');
+      }
+    } catch (e) {
+      localStorage.removeItem('user');
+    }
+
     if (user && user.accessToken) {
       config.headers.Authorization = `Bearer ${user.accessToken}`;
     }

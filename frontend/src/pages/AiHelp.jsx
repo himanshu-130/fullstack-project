@@ -14,6 +14,7 @@ export default function AiHelp() {
       const res = await api.get('/api/ai/insights');
       setInsights(res.data.insights);
     } catch (err) {
+      console.error(err);
       toast.error('Failed to grab AI insights. Ensure your `.env` contains GEMINI_API_KEY.');
     } finally {
       setLoading(false);

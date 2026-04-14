@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config({ path: "./backend/.env" });
 
 fetch("https://api.github.com/user/repos", {
     method: "POST",

@@ -34,6 +34,7 @@ export default function Dashboard() {
       setTransactions(res.data.data);
       buildChart(res.data.data);
     } catch (err) {
+      console.error(err);
       toast.error('Failed to load transactions');
     } finally {
       setLoading(false);
@@ -45,6 +46,7 @@ export default function Dashboard() {
       setUserName(user.name.split(" ")[0]);
     }
     fetchTransactions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   function buildChart(data) {
@@ -77,6 +79,7 @@ export default function Dashboard() {
       toast.success("Transaction deleted");
       fetchTransactions();
     } catch (err) {
+      console.error(err);
       toast.error("Failed to delete transaction");
     }
   };

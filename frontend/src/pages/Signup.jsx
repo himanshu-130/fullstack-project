@@ -22,7 +22,9 @@ export default function Signup() {
         navigate('/');
       }
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Registration failed. Please try again.');
+      console.error('Signup error:', err);
+      const errorMsg = err.response?.data?.message || err.response?.data?.errors?.[0]?.msg || 'Registration failed. Please try again.';
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
     }
